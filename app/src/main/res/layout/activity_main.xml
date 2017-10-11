@@ -6,27 +6,62 @@
     android:layout_height="match_parent"
     tools:context="com.epicodus.bogglesolitaire.MainActivity">
 
+        <TextView
+            android:id="@+id/puzzleString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/answer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="82dp"
+            android:text=""
+            android:textAllCaps="true"
+            android:textSize="48sp" />
+
+        <Button
+            android:id="@+id/submitAnswerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/newGameButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="14dp"
+            android:background="@color/colorPrimary"
+            android:text="submit answer"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/newGameButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="27dp"
+            android:background="@color/colorPrimary"
+            android:text="new game"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/submitAnswerButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:ems="10"
+            android:hint="Your Answer"
+            android:inputType="textPersonName" />
+
     <TextView
-        android:id="@+id/puzzleString"
+        android:id="@+id/title"
+        android:textSize="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="48sp"
-        android:textAllCaps="true" />
-
-    <Button
-        android:id="@+id/newGameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="71dp"
-        android:text="new game"
-        android:textSize="20sp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorTextIcons"
-        />
+        android:layout_marginTop="49dp"
+        android:text="Boggle Solitaire" />
 
 </RelativeLayout>
