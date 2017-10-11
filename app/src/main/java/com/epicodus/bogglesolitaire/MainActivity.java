@@ -1,5 +1,6 @@
 package com.epicodus.bogglesolitaire;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.newGameButton) Button mNewGameButton;
     @Bind(R.id.submitAnswerButton) Button mSubmitAnswerButton;
     @Bind(R.id.answer) EditText mAnswer;
+    @Bind(R.id.timer) TextView mTimer;
     private int vowelCount;
     private List<String> letterArray = Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
     private List<String> vowelArray = Arrays.asList("A", "E", "I", "O", "U");
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mNewGameButton.setOnClickListener(this);
         mSubmitAnswerButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             emptyValues();
             String puzzle = getPuzzleString();
             mPuzzleString.setText(puzzle);
+            startTimer();
         } else if(v == mSubmitAnswerButton) {
             String answer = mAnswer.getText().toString().trim().toUpperCase();
             evaluateAnswerValidity(answer);
@@ -55,6 +59,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void emptyValues() {
         puzzleArray.clear();
         vowelCount = 0;
+    }
+
+    public void startTimer() {
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                mTimer.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                mTimer.setText("done!");
+            }
+        }.start();
     }
 
     public void evaluateAnswerValidity(String answer) {

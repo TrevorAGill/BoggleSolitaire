@@ -64,4 +64,15 @@
         android:layout_marginTop="49dp"
         android:text="Boggle Solitaire" />
 
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/answer"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_toEndOf="@+id/answer"
+        android:layout_toRightOf="@+id/answer"
+        android:text="" />
+
 </RelativeLayout>
