@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public String getRandomLetter() {
         String randomLetter = letterArray.get(new Random().nextInt(26));
-        if(randomLetter == "A" || randomLetter == "E" || randomLetter == "I" || randomLetter == "O" || randomLetter == "U")
+        if(randomLetter.equals("A") || randomLetter.equals("E") || randomLetter.equals("I") || randomLetter.equals("O") || randomLetter.equals("U"))
             vowelCount += 1;
         return randomLetter;
     }
