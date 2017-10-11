@@ -1,5 +1,6 @@
 package com.epicodus.bogglesolitaire;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.util.Random;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.R.attr.key;
 import static android.R.id.list;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<String> letterArray = Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
     private List<String> vowelArray = Arrays.asList("A", "E", "I", "O", "U");
     private ArrayList<String> puzzleArray = new ArrayList<>();
+    private ArrayList<String> correctAnswers = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +73,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             public void onFinish() {
                 mTimer.setText("done!");
+                Bundle bundle = makeBundle(correctAnswers);
+                Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         }.start();
+    }
+
+    public Bundle makeBundle(ArrayList correctAnswers){
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("key", correctAnswers);
+        return bundle;
     }
 
     public void evaluateAnswerValidity(String answer) {
@@ -87,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             if(letterMatchCount > 2 && letterMatchCount == answer.length()){
                 Toast.makeText(MainActivity.this, "GOOD ANSWER!", Toast.LENGTH_LONG).show();
+                correctAnswers.add(answer);
                 mAnswer.setText("");
             } else {
                 Toast.makeText(MainActivity.this, "LETTERS DON'T MATCH PUZZLE", Toast.LENGTH_LONG).show();
