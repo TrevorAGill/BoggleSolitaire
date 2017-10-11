@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<String> vowelArray = Arrays.asList("A", "E", "I", "O", "U");
     private ArrayList<String> puzzleArray = new ArrayList<>();
     private ArrayList<String> correctAnswers = new ArrayList<>();
+    private ArrayList<String> puzzleArrayReset = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mPuzzleString.setText(puzzle);
             startTimer();
         } else if(v == mSubmitAnswerButton) {
+            puzzleArray = puzzleArrayReset;
             String answer = mAnswer.getText().toString().trim().toUpperCase();
             evaluateAnswerValidity(answer);
         }
@@ -88,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void evaluateAnswerValidity(String answer) {
+        Log.i("MainActivity","thing: " + puzzleArray);
+        puzzleArray = puzzleArrayReset;
         int letterMatchCount = 0;
         String[] answerArray = answer.split("");
         if(answer.length() < 3) {
@@ -97,7 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 1; i < answer.length() + 1 ; i++) {
                 if (puzzleArray.contains(answerArray[i]))
                     letterMatchCount += 1;
+                    puzzleArray.remove(answerArray[i]);
             }
+//            puzzleArray.add(answerArray)
             if(letterMatchCount > 2 && letterMatchCount == answer.length()){
                 Toast.makeText(MainActivity.this, "GOOD ANSWER!", Toast.LENGTH_LONG).show();
                 correctAnswers.add(answer);
@@ -114,9 +121,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(puzzleArray.size()>5 && vowelCount <2){
                 String randomLetter = getRandomVowel();
                 puzzleArray.add(randomLetter);
+                puzzleArrayReset.add(randomLetter);
             } else {
                 String randomLetter = getRandomLetter();
                 puzzleArray.add(randomLetter);
+                puzzleArrayReset.add(randomLetter);
             }
         }
         String joined = TextUtils.join(" ", puzzleArray);
