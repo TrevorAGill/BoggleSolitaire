@@ -6,7 +6,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import static android.R.id.list;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.puzzleString) TextView mPuzzleString;
     @Bind(R.id.newGameButton) Button mNewGameButton;
+    @Bind(R.id.submitAnswerButton) Button mSubmitAnswerButton;
+    @Bind(R.id.answer) EditText mAnswer;
     private int vowelCount;
     private List<String> letterArray = Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
     private List<String> vowelArray = Arrays.asList("A", "E", "I", "O", "U");
@@ -33,14 +37,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ButterKnife.bind(this);
         mNewGameButton.setOnClickListener(this);
+        mSubmitAnswerButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v == mNewGameButton)
+        if(v == mNewGameButton) {
             emptyValues();
             String puzzle = getPuzzleString();
             mPuzzleString.setText(puzzle);
+        } else if(v == mSubmitAnswerButton) {
+            String answer = mAnswer.getText().toString().trim().toUpperCase();
+            evaluateAnswerValidity(answer);
+        }
     }
 
     public void emptyValues() {
@@ -48,20 +57,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vowelCount = 0;
     }
 
+    public void evaluateAnswerValidity(String answer) {
+        int letterMatchCount = 0;
+        String[] answerArray = answer.split("");
+        if(answer.length() < 3) {
+            Toast.makeText(MainActivity.this, "USE AT LEAST 3 LETTERS", Toast.LENGTH_LONG).show();
+            mAnswer.setText("");
+        } else {
+            for (int i = 1; i < answer.length() + 1 ; i++) {
+                if (puzzleArray.contains(answerArray[i]))
+                    letterMatchCount += 1;
+            }
+            if(letterMatchCount > 2 && letterMatchCount == answer.length()){
+                Toast.makeText(MainActivity.this, "GOOD ANSWER!", Toast.LENGTH_LONG).show();
+                mAnswer.setText("");
+            } else {
+                Toast.makeText(MainActivity.this, "LETTERS DON'T MATCH PUZZLE", Toast.LENGTH_LONG).show();
+                mAnswer.setText("");
+            }
+        }
+    }
+
     public String getPuzzleString() {
         for(int i=0 ; i < 8 ; i++){
             if(puzzleArray.size()>5 && vowelCount <2){
                 String randomLetter = getRandomVowel();
                 puzzleArray.add(randomLetter);
-//                Log.i("MainActivity","IFvowel count is: " + vowelCount);
             } else {
                 String randomLetter = getRandomLetter();
                 puzzleArray.add(randomLetter);
-//                Log.i("MainActivity","puzzleArray.size()= " + puzzleArray.size());
-//                Log.i("MainActivity","ELSEvowel count is: " + vowelCount);
             }
         }
-//        Log.i("MainActivity", "Puzzle Array equals" + puzzleArray);
         String joined = TextUtils.join(" ", puzzleArray);
         return joined;
     }
@@ -78,6 +104,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vowelCount += 1;
         return randomLetter;
     }
-
 
 }
