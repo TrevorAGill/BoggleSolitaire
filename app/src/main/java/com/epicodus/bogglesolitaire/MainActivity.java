@@ -2,6 +2,7 @@ package com.epicodus.bogglesolitaire;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mNewGameButton)
             emptyValues();
-            getPuzzleString();
+            String puzzle = getPuzzleString();
+            mPuzzleString.setText(puzzle);
     }
 
     public void emptyValues() {
@@ -46,21 +48,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vowelCount = 0;
     }
 
-    public List getPuzzleString() {
+    public String getPuzzleString() {
         for(int i=0 ; i < 8 ; i++){
             if(puzzleArray.size()>5 && vowelCount <2){
                 String randomLetter = getRandomVowel();
                 puzzleArray.add(randomLetter);
-                Log.i("MainActivity","IFvowel count is: " + vowelCount);
+//                Log.i("MainActivity","IFvowel count is: " + vowelCount);
             } else {
                 String randomLetter = getRandomLetter();
                 puzzleArray.add(randomLetter);
-                Log.i("MainActivity","puzzleArray.size()= " + puzzleArray.size());
-                Log.i("MainActivity","ELSEvowel count is: " + vowelCount);
+//                Log.i("MainActivity","puzzleArray.size()= " + puzzleArray.size());
+//                Log.i("MainActivity","ELSEvowel count is: " + vowelCount);
             }
         }
-        Log.i("MainActivity", "Puzzle Array equals" + puzzleArray);
-        return puzzleArray;
+//        Log.i("MainActivity", "Puzzle Array equals" + puzzleArray);
+        String joined = TextUtils.join(" ", puzzleArray);
+        return joined;
     }
 
     public String getRandomLetter() {
