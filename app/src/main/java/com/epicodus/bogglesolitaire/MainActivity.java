@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,10 +56,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String puzzle = getPuzzleString();
             mPuzzleString.setText(puzzle);
             startTimer();
+            correctAnswers.clear();
         } else if(v == mSubmitAnswerButton) {
-            puzzleArray = puzzleArrayReset;
             String answer = mAnswer.getText().toString().trim().toUpperCase();
             evaluateAnswerValidity(answer);
+            puzzleArrayReset.clear();
         }
     }
 
@@ -68,10 +70,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void startTimer() {
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                mTimer.setText("seconds remaining: " + millisUntilFinished / 1000);
+                mTimer.setText("time left: " + millisUntilFinished / 1000);
             }
 
             public void onFinish() {
@@ -90,27 +92,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return bundle;
     }
 
+    public void showToast(String alertMessage) {
+        Toast answerStatus = Toast.makeText(MainActivity.this, alertMessage, Toast.LENGTH_LONG);
+        answerStatus.setGravity(Gravity.CENTER_HORIZONTAL, 0, 250);
+        answerStatus.show();
+    }
+
     public void evaluateAnswerValidity(String answer) {
-        Log.i("MainActivity","thing: " + puzzleArray);
-        puzzleArray = puzzleArrayReset;
         int letterMatchCount = 0;
         String[] answerArray = answer.split("");
         if(answer.length() < 3) {
-            Toast.makeText(MainActivity.this, "USE AT LEAST 3 LETTERS", Toast.LENGTH_LONG).show();
+            showToast("USE AT LEAST 3 LETTERS");
             mAnswer.setText("");
         } else {
             for (int i = 1; i < answer.length() + 1 ; i++) {
                 if (puzzleArray.contains(answerArray[i]))
                     letterMatchCount += 1;
-                    puzzleArray.remove(answerArray[i]);
+                puzzleArray.remove(answerArray[i]);
+                puzzleArrayReset.add(answerArray[i]);
             }
-//            puzzleArray.add(answerArray)
+            puzzleArray.addAll(puzzleArrayReset);
             if(letterMatchCount > 2 && letterMatchCount == answer.length()){
-                Toast.makeText(MainActivity.this, "GOOD ANSWER!", Toast.LENGTH_LONG).show();
+                showToast("GOOD ANSWER!");
                 correctAnswers.add(answer);
                 mAnswer.setText("");
             } else {
-                Toast.makeText(MainActivity.this, "LETTERS DON'T MATCH PUZZLE", Toast.LENGTH_LONG).show();
+                showToast("LETTERS DON'T MATCH PUZZLE");
                 mAnswer.setText("");
             }
         }
@@ -121,11 +128,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(puzzleArray.size()>5 && vowelCount <2){
                 String randomLetter = getRandomVowel();
                 puzzleArray.add(randomLetter);
-                puzzleArrayReset.add(randomLetter);
             } else {
                 String randomLetter = getRandomLetter();
                 puzzleArray.add(randomLetter);
-                puzzleArrayReset.add(randomLetter);
             }
         }
         String joined = TextUtils.join(" ", puzzleArray);
