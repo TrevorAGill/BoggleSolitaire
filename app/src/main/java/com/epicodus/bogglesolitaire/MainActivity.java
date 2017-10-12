@@ -101,8 +101,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void evaluateAnswerValidity(String answer) {
         int letterMatchCount = 0;
         String[] answerArray = answer.split("");
+
         if(answer.length() < 3) {
             showToast("USE AT LEAST 3 LETTERS");
+            mAnswer.setText("");
+        } else if (correctAnswers.contains(answer)){
+            showToast("DUPLICATE ANSWER");
             mAnswer.setText("");
         } else {
             for (int i = 1; i < answer.length() + 1 ; i++) {
