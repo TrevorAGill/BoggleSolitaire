@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void startTimer() {
-        new CountDownTimer(30000, 1000) {
+        new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 mTimer.setText("seconds remaining: " + millisUntilFinished / 1000);

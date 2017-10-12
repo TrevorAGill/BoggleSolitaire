@@ -20,12 +20,12 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
+        Bundle bundle = this.getIntent().getExtras();
+        ArrayList<String> answerArray = bundle.getStringArrayList("key");
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, answerArray);
         mListView.setAdapter(adapter);
     }
 
-    Bundle bundle = this.getIntent().getExtras();
-    ArrayList<String> answerArray = bundle.getStringArrayList("key");
 
 
 
