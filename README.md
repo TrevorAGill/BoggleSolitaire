@@ -5,7 +5,7 @@
 #### By Trevor Gill
 
 ## Description
-_An application for keeping track of important details related to the animals at a zoo._
+_A solitaire version of boggle (similar to Text Twist). The user is given 8 random letters and they are tasked with submitting words that can be made out of letters in the random array of letters. The user tries to submit as many valid English words as they can before time runs out.
 
 ## Setup/Installation Requirements
 * Clone the repo
@@ -15,21 +15,15 @@ _An application for keeping track of important details related to the animals at
 ## Specifications
 | Behavior      | Input      | Output       |
 | ------------- | ---------- | ------------ |
-| The application shall be able to take animal information from a user and create a new animal to be added to the zoo | Animal name: Bingo, Animal species: Panda, etc... | new Animal object |
-| The application shall be able to display all details of all animals that have been added to the application | allAnimals = [{Bingo, Claude, Belle}] | Display all details about Bingo, Claude, and Belle |
-| The application shall be able to filter the display of animals based on age (animals under 2 and animals over 2 shall be able to be filtered into separate displays) | Display "young animals only" | Display Claude |
-| The application shall be able to filter the display of animals based on diet | Display "herbivores only" | Display Claude |
-| The application shall allow the user to calculate the total number of caretakers needed based on the animals in the zoo | Animal[] | 12 caretakers |
+| The application shall be able to generate a random series of 8 letters with atleast 2 vowels | New Game | Array of 8 letters | The application shall shall alert the user of incorrect or invalid answers | jump (but array doesn't have a "j") | Invalid answer | The application shall alert the user of correct answers | jump | "Good Answer!" | The application shall alert the user if they are submitting an answer that they have already submitted | jump | "Duplicate Answer | The application shall present the user with a list of valid answers after time has run out | Time runs out | list of valid answers submitted |
 
 # Screenshot
 ![Main page](app/src/main/res/screenshots/screen1.png)
 ![Main page](app/src/main/res/screenshots/screen2.png)
 
 # Potential Future Improvements
-* Add ability to remove animals if they are transferred to another zoo
-* Add filter species, for cases where there are multiple animals of a particular species
-* Track images of animals
-* Add property to track admittance date for animals
+* Add 2nd player
+* Add grid format of traditional Boggle game
 
 ## Technologies Used
 * Android Studio
