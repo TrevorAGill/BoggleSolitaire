@@ -15,7 +15,11 @@ _A solitaire version of boggle (similar to Text Twist). The user is given 8 rand
 ## Specifications
 | Behavior      | Input      | Output       |
 | ------------- | ---------- | ------------ |
-| The application shall be able to generate a random series of 8 letters with atleast 2 vowels | New Game | Array of 8 letters | The application shall shall alert the user of incorrect or invalid answers | jump (but array doesn't have a "j") | Invalid answer | The application shall alert the user of correct answers | jump | "Good Answer!" | The application shall alert the user if they are submitting an answer that they have already submitted | jump | "Duplicate Answer | The application shall present the user with a list of valid answers after time has run out | Time runs out | list of valid answers submitted |
+| The application shall be able to generate a random series of 8 letters with atleast 2 vowels | New Game | Array of 8 letters | 
+| The application shall shall alert the user of incorrect or invalid answers | jump (but array doesn't have a "j") | Invalid answer | 
+| The application shall alert the user of correct answers | jump | "Good Answer!" | 
+| The application shall alert the user if they are submitting an answer that they have already submitted | jump | "Duplicate Answer | 
+| The application shall present the user with a list of valid answers after time has run out | Time runs out | list of valid answers submitted |
 
 # Screenshot
 ![Main page](app/src/main/res/screenshots/screen1.png)
